@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Atmosphere Window</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Video Container -->
+    <div id="video-container">
+        <video id="main-video" loop playsinline muted>
+            <!-- Source will be set by JS -->
+        </video>
+    </div>
+
+    <!-- Audio Container -->
+    <audio id="background-audio" loop>
+        <!-- Source will be set by JS -->
+    </audio>
+
+    <!-- Start Overlay -->
+    <div id="start-overlay">
+        <div class="content">
+            <h1>Atmosphere Window</h1>
+            <p>Tap to Start</p>
+        </div>
+    </div>
+
+    <!-- UI Overlay (Controls) -->
+    <div id="ui-overlay">
+        <div id="controls-container">
+            <button id="btn-bad" class="control-btn" aria-label="Don't show again">
+                <span>&#10060;</span> <!-- Cross/Bad icon -->
+            </button>
+            <button id="btn-good" class="control-btn" aria-label="Favorite">
+                <span>&#10084;</span> <!-- Heart icon -->
+            </button>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="hidden">
+        <div class="modal-content">
+            <h2>Settings</h2>
+
+            <div class="setting-group">
+                <label for="genre-select">Genre</label>
+                <select id="genre-select">
+                    <option value="all">All</option>
+                    <option value="forest">Forest</option>
+                    <option value="ocean">Ocean</option>
+                    <option value="mountain">Mountain</option>
+                    <option value="castle">Castle</option>
+                    <option value="world_heritage">World Heritage</option>
+                </select>
+            </div>
+
+            <div class="setting-group">
+                <label for="region-select">Region</label>
+                <select id="region-select">
+                    <option value="all">All</option>
+                    <option value="japan">Japan</option>
+                    <option value="europe">Europe</option>
+                    <option value="america">America</option>
+                    <option value="australia">Australia</option>
+                    <option value="world_heritage">World Heritage</option>
+                </select>
+            </div>
+
+            <div class="setting-group checkbox-group">
+                <input type="checkbox" id="favorites-only">
+                <label for="favorites-only">Favorites Only</label>
+            </div>
+
+            <div class="modal-actions">
+                <button id="btn-close-settings">Close</button>
+            </div>
+
+            <div class="modal-footer">
+                <p>Double tap anywhere to open settings.</p>
+                <button id="btn-clear-data" class="small-danger">Reset Data</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

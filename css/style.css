@@ -1,0 +1,242 @@
+/* Reset & Base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #000;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #fff;
+}
+
+/* Video Container */
+#video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#main-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+#main-video.visible {
+    opacity: 1;
+}
+
+/* Overlays */
+#start-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.5s ease;
+}
+
+#start-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden; /* Ensure it is hidden from AT and layout */
+    transition: opacity 0.5s ease, visibility 0s 0.5s; /* Delay visibility change */
+}
+
+#start-overlay .content {
+    text-align: center;
+}
+
+#start-overlay h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+}
+
+#ui-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    pointer-events: none; /* Let touches pass through to video for swipe */
+}
+
+#controls-container {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px 20px;
+    border-radius: 30px;
+    display: flex;
+    gap: 20px;
+    pointer-events: auto; /* Re-enable pointer events for buttons */
+    backdrop-filter: blur(5px);
+    transition: opacity 0.3s;
+}
+
+/* Hide controls if desired, or keep them subtle */
+#ui-overlay.fade-out {
+    opacity: 0.2;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.5); /* More subtle by default */
+    font-size: 1.8rem; /* Slightly larger for touch */
+    padding: 10px; /* Larger touch target */
+    cursor: pointer;
+    transition: transform 0.1s, color 0.2s, opacity 0.3s;
+}
+
+.control-btn:active {
+    transform: scale(0.9);
+}
+
+.control-btn:hover {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.control-btn.active-good {
+    color: #ff4081; /* Pink for favorite */
+    opacity: 1;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Settings Modal */
+#settings-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+}
+
+#settings-modal.hidden {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+}
+
+.modal-content {
+    background: #1a1a1a;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    color: #eee;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 400;
+}
+
+.setting-group {
+    margin-bottom: 20px;
+}
+
+.setting-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+.setting-group select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #333;
+    background: #333;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-group input {
+    width: 20px;
+    height: 20px;
+}
+
+.checkbox-group label {
+    margin: 0;
+}
+
+.modal-actions {
+    margin-top: 30px;
+    text-align: center;
+}
+
+#btn-close-settings {
+    padding: 10px 30px;
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-footer {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.small-danger {
+    background: none;
+    border: none;
+    color: #d32f2f;
+    font-size: 0.8rem;
+    margin-top: 10px;
+    text-decoration: underline;
+    cursor: pointer;
+}
