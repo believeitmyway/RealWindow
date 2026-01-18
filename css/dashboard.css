@@ -1,0 +1,279 @@
+/* Dashboard Overlay */
+#dashboard-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 60; /* Higher than settings modal */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.4s ease, visibility 0.4s;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    padding: 20px;
+}
+
+#dashboard-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+#dashboard-content {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    max-height: 90vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+/* Header / Greeting */
+#dashboard-header {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-bottom: 10px;
+    position: relative;
+    color: rgba(0, 0, 0, 0.6); /* Darker text for visibility on light blur */
+    text-shadow: 0 1px 1px rgba(255,255,255,0.5);
+}
+
+#dashboard-settings-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #555;
+    padding: 5px;
+    transition: transform 0.2s;
+}
+
+#dashboard-settings-btn:hover {
+    transform: rotate(90deg);
+}
+
+/* Cards */
+.dash-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Specific Card Styles */
+#card-time {
+    grid-column: 1 / 2;
+    text-align: center;
+}
+
+#card-time .time-display {
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1;
+}
+
+#card-time .date-display {
+    font-size: 1.2rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+#card-weather {
+    grid-column: 2 / 3;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#card-weather .weather-icon {
+    font-size: 3rem;
+    color: #555;
+}
+
+#card-weather .weather-info {
+    text-align: right;
+}
+
+#card-weather .temp-main {
+    font-size: 3rem;
+    font-weight: 300;
+}
+
+#card-weather .temp-range {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+#card-forecast {
+    grid-column: 1 / -1;
+    overflow-x: auto;
+}
+
+.forecast-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    min-width: 100%;
+}
+
+.forecast-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 50px;
+}
+
+.forecast-item .f-time {
+    font-size: 0.8rem;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+.forecast-item .f-icon {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.forecast-item .f-temp {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+#card-schedule {
+    grid-column: 1 / -1;
+    min-height: 150px;
+    justify-content: flex-start;
+}
+
+.schedule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.schedule-title {
+    font-size: 1rem;
+    color: #777;
+}
+
+.schedule-tabs {
+    display: flex;
+    gap: 5px;
+    background: #f0f0f0;
+    padding: 3px;
+    border-radius: 8px;
+}
+
+.schedule-tab {
+    border: none;
+    background: none;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    border-radius: 6px;
+    color: #666;
+    transition: background 0.2s;
+}
+
+.schedule-tab.active {
+    background: #fff;
+    color: #000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.schedule-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.schedule-item {
+    display: flex;
+    margin-bottom: 15px;
+    position: relative;
+    padding-left: 15px;
+}
+
+.schedule-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 5px;
+    bottom: 5px;
+    width: 4px;
+    background: #ccc;
+    border-radius: 2px;
+}
+
+.schedule-item.now::before {
+    background: #4caf50;
+}
+
+.event-time {
+    font-size: 0.8rem;
+    color: #666;
+    width: 100px;
+    flex-shrink: 0;
+}
+
+.event-title {
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+/* Dashboard Settings Modal (Specific overrides or new styles) */
+#dash-settings-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 70; /* Above dashboard */
+    background: rgba(0, 0, 0, 0.85); /* Dark background to stand out */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+}
+
+#dash-settings-modal.hidden {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    #dashboard-content {
+        grid-template-columns: 1fr;
+    }
+
+    #card-time, #card-weather {
+        grid-column: 1 / -1;
+    }
+}
