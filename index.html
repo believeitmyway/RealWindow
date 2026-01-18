@@ -5,8 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Atmosphere Window</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
+
+    <!-- Dashboard Overlay -->
+    <div id="dashboard-overlay">
+        <div id="dashboard-content">
+            <div id="dashboard-header">
+                <h2>Hello!</h2>
+                <button id="dashboard-settings-btn" aria-label="Dashboard Settings">⚙️</button>
+            </div>
+
+            <div id="card-time" class="dash-card">
+                <div class="time-display">--:--</div>
+                <div class="date-display">...</div>
+            </div>
+
+            <div id="card-weather" class="dash-card">
+                <div class="weather-icon">☁️</div>
+                <div class="weather-info">
+                    <div class="temp-main">--°</div>
+                    <div class="temp-range">--° / --°</div>
+                </div>
+            </div>
+
+            <div id="card-forecast" class="dash-card">
+                <div class="forecast-container">
+                    <!-- JS will populate -->
+                </div>
+            </div>
+
+            <div id="card-schedule" class="dash-card">
+                <div class="schedule-header">
+                    <span class="schedule-title">Schedule</span>
+                    <div class="schedule-tabs">
+                        <button class="schedule-tab active" data-view="today">Today</button>
+                        <button class="schedule-tab" data-view="3day">3 Days</button>
+                        <button class="schedule-tab" data-view="week">Week</button>
+                    </div>
+                </div>
+                <ul class="schedule-list">
+                    <!-- JS will populate -->
+                    <li style="padding:10px; color:#999; text-align:center;">Loading...</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
     <!-- Video Container -->
     <div id="video-container">
@@ -34,9 +79,44 @@
             <button id="btn-bad" class="control-btn" aria-label="Don't show again">
                 <span>&#10060;</span> <!-- Cross/Bad icon -->
             </button>
+            <button id="btn-dashboard-toggle" class="control-btn" aria-label="Dashboard">
+                <span>📅</span> <!-- Calendar/Dashboard icon -->
+            </button>
             <button id="btn-good" class="control-btn" aria-label="Favorite">
                 <span>&#10084;</span> <!-- Heart icon -->
             </button>
+        </div>
+    </div>
+
+    <!-- Dashboard Settings Modal -->
+    <div id="dash-settings-modal" class="hidden">
+        <div class="modal-content">
+            <h2>Dashboard Settings</h2>
+
+            <div class="setting-group">
+                <h3>Google Calendar</h3>
+                <label for="inp-gcal-client-id">Client ID</label>
+                <input type="text" id="inp-gcal-client-id" placeholder="Your Client ID" style="width:100%; padding:8px; margin-bottom:10px; background:#333; color:white; border:1px solid #555;">
+
+                <label for="inp-gcal-api-key">API Key</label>
+                <input type="text" id="inp-gcal-api-key" placeholder="Your API Key" style="width:100%; padding:8px; margin-bottom:10px; background:#333; color:white; border:1px solid #555;">
+
+                <button id="btn-gcal-auth" onclick="handleAuthClick()" style="width:100%; padding:10px; background:#4285f4; color:white; border:none; border-radius:5px; cursor:pointer;">Sign In with Google</button>
+            </div>
+
+            <div class="setting-group">
+                <h3>Weather</h3>
+                <label>Location (Lat, Lon)</label>
+                <div style="display:flex; gap:10px;">
+                    <input type="text" id="inp-weather-lat" placeholder="Lat" style="width:50%; padding:8px; background:#333; color:white; border:1px solid #555;">
+                    <input type="text" id="inp-weather-lon" placeholder="Lon" style="width:50%; padding:8px; background:#333; color:white; border:1px solid #555;">
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button id="btn-save-dash-settings" style="background:#4caf50; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer;">Save</button>
+                <button id="btn-close-dash-settings" style="background:#555; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer;">Close</button>
+            </div>
         </div>
     </div>
 
@@ -87,5 +167,13 @@
 
     <script src="js/config.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initDashboard();
+        });
+    </script>
 </body>
 </html>
